@@ -8,10 +8,12 @@ const styles = StyleSheet.create({
 	},
 });
 
-const TodoList = () => {
+const TodoList = ({todos, onRemove, onToggle}) => {
 	return (
 		<ScrollView contentContainerStyle={styles.listContainer}>
-			<TodoListItem />
+			{todos.map(todo => (
+				<TodoListItem key={todo.id} {...todo} onRemove={onRemove} onToggle={onToggle}/>
+			))}
 		</ScrollView>
 	);
 };

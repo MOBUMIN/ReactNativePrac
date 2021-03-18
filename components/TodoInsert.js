@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
 	Button,
 	StyleSheet,
@@ -26,17 +26,27 @@ const styles = StyleSheet.create({
 	},
 });
 
-const TodoInsert = () => {
+const TodoInsert = ({onAddTodo}) => {
+	const [newTodoItem, setNewTodoItem] = useState('');
+	const todoInputHandler = newTodo => {
+		setNewTodoItem(newTodo);
+	}
+	const addTodoHandler = () => {
+		onAddTodo(newTodoItem);
+		setNewTodoItem('');
+	};
 	return (
 		<View style={styles.inputContainer}>
 			<TextInput
 				style={styles.input}
 				placeholder="Add an item!"
 				placeholderTextColor={'#999'}
+				onChangeText={todoInputHandler}
+				value={newTodoItem}
 				autoCorrect={false}
 			/>
 			<View style={styles.button}>
-				<Button title={'ADD'} />
+				<Button title={'ADD'} onPress={addTodoHandler} />
 			</View>
 		</View>
 	)
